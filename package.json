@@ -1,5 +1,5 @@
 {
-  "name": "dummy-app",
+  "name": "strapi-nextjs-lorem",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^0.26.1",
+    "dlv": "^1.1.3",
     "next": "12.1.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-markdown": "8.0.1",
+    "remark-gfm": "3.0.1"
   },
   "devDependencies": {
     "eslint": "8.11.0",
