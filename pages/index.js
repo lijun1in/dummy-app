@@ -5,14 +5,15 @@ import Link from "next/link";
 import axios from "axios";
 import delve from "dlv";
 import BlockManager from "../shared/BlockManager";
+import Layout from "../global/Layout";
 
-const Home = ({ pageData }) => {
+const Home = ({ global, pageData }) => {
   const blocks = delve(pageData, "block");
 
   return (
-    <div>
+    <Layout global={global} pageData={pageData}>
       <BlockManager blocks={blocks} />
-    </div>
+    </Layout>
   );
 };
 

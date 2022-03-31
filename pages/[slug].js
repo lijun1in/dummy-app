@@ -5,15 +5,17 @@ import delve from "dlv";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import Link from "next/link";
 import BlockManager from "../shared/BlockManager";
+import Layout from "../global/Layout";
 
-export default function Page({ props }) {
-  const { pageData } = props;
+export default function Page(props) {
+  const { global, pageData } = props;
   const blocks = delve(pageData, "block");
-  if (page.Slug != "home") {
+  const slug = delve(pageData, "slug");
+  if (slug != "home") {
     return (
-      <div>
+      <Layout global={global} pageData={pageData}>
         <BlockManager blocks={blocks} />
-      </div>
+      </Layout>
     );
   }
 }
@@ -23,7 +25,7 @@ export async function getStaticPaths() {
   const res = await axios.get("http://localhost:1337/pages");
   const pages = await res.data;
   const paths = pages.map((page) => ({
-    params: { slug: page.Slug },
+    params: { slug: page.slug },
   }));
   return {
     paths,
@@ -36,11 +38,15 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { slug } = params;
 
-  const res = await axios.get(`http://localhost:1337/pages?Slug=${slug}`);
+  //console.log(slug);
+
+  const res = await axios.get(`http://localhost:1337/pages?slug=${slug}`);
 
   const data = await res.data;
 
   const pageData = data[0];
+
+  //console.log(pageData);
 
   return {
     props: { pageData },
